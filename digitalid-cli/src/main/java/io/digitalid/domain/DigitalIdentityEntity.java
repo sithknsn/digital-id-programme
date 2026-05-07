@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public abstract class DigitalIdentityEntity {
+public class DigitalIdentityEntity {
     private final UUID digitalId;
     private final LocalDateTime dateCreated;
     private final LocalDate dateOfBirth;
