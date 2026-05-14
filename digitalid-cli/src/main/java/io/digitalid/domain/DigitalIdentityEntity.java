@@ -10,6 +10,7 @@ public class DigitalIdentityEntity {
     private final String nationality;
     private String firstName;
     private String lastName;
+    private String email;
     private UserStatus status;
     private LocalDateTime lastModified;
 
@@ -33,7 +34,12 @@ public class DigitalIdentityEntity {
     public void setLastName(String lastName) { this.lastName = lastName; }
 
     public UserStatus getStatus() { return status; }
-    protected void setStatus(UserStatus status) { this.status = status; }
+
+    protected void setStatus(UserStatus status) {
+        if (this.status.isRevoked()){
+            throw new IllegalStateException("[STATE ERROR] You cannot update a revoked identity");
+
+        }
 
     public LocalDateTime getLastModified() { return lastModified; }
     public void setLastModified(LocalDateTime lastModified) { this.lastModified = lastModified; }
