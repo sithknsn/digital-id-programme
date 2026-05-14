@@ -5,18 +5,25 @@ import java.util.UUID;
 
 public class DigitalIdentityEntity {
     private final UUID digitalId;
-    private final LocalDateTime dateCreated;
     private final LocalDate dateOfBirth;
     private final String nationality;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final LocalDateTime dateCreated;
+
+    private String address;
     private UserStatus status;
     private LocalDateTime lastModified;
 
-    public DigitalIdentityEntity(LocalDate dateOfBirth, String nationality) {
+
+    public DigitalIdentityEntity(String firstName, String lastName, String email, String address, LocalDate dateOfBirth, String nationality) {
         this.digitalId = UUID.randomUUID();
         this.dateCreated = LocalDateTime.now();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
         this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.status = UserStatus.UNVERIFIED;
@@ -28,18 +35,19 @@ public class DigitalIdentityEntity {
     public String getNationality() { return nationality; }
 
     public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
     public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getEmail() { return email; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
     public UserStatus getStatus() { return status; }
 
     protected void setStatus(UserStatus status) {
         if (this.status.isRevoked()){
             throw new IllegalStateException("[STATE ERROR] You cannot update a revoked identity");
-
         }
+        this.status = status;
 
     }
     public LocalDateTime getLastModified() { return lastModified; }
