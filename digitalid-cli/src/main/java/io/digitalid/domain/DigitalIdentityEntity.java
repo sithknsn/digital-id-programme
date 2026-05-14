@@ -17,15 +17,15 @@ public class DigitalIdentityEntity {
     private LocalDateTime lastModified;
 
 
-    public DigitalIdentityEntity(String firstName, String lastName, String email, String address, LocalDate dateOfBirth, String nationality) {
+    public DigitalIdentityEntity(IdentityAttributes request) {
         this.digitalId = UUID.randomUUID();
         this.dateCreated = LocalDateTime.now();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.dateOfBirth = dateOfBirth;
-        this.nationality = nationality;
+        this.firstName = request.firstName();
+        this.lastName = request.lastName();
+        this.email = request.email();
+        this.address = request.address();
+        this.dateOfBirth = request.dateOfBirth();
+        this.nationality = request.nationality();
         this.status = UserStatus.UNVERIFIED;
     }
 
