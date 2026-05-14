@@ -1,13 +1,13 @@
 package io.digitalid.domain;
 
 public enum UserStatus {
-    UNVERIFIED {
+    PENDING {
         @Override
         public UserStatus activate() { return ACTIVE; }
     },
     ACTIVE {
         @Override
-        public UserStatus suspend() { return SUSPENDED; }
+        public UserStatus deactivate() { return INACTIVE; }
 
         @Override
         public UserStatus expire() { return EXPIRED; }
@@ -15,9 +15,12 @@ public enum UserStatus {
         @Override
         public UserStatus revoke() { return REVOKED; }
     },
-    SUSPENDED {
+    INACTIVE {
         @Override
         public UserStatus activate() { return ACTIVE; }
+
+        @Override
+        public UserStatus expire() { return EXPIRED; }
 
         @Override
         public UserStatus revoke() { return REVOKED; }
@@ -35,8 +38,8 @@ public enum UserStatus {
         throw new IllegalStateException("[STATE ERROR] You cannot activate from " + this);
     }
 
-    public UserStatus suspend() {
-        throw new IllegalStateException("[STATE ERROR] You cannot suspend from " + this);
+    public UserStatus deactivate() {
+        throw new IllegalStateException("[STATE ERROR] You cannot deactivate from " + this);
     }
 
     public UserStatus expire() {

@@ -26,7 +26,7 @@ public class DigitalIdentityEntity {
         this.address = request.address();
         this.dateOfBirth = request.dateOfBirth();
         this.nationality = request.nationality();
-        this.status = UserStatus.UNVERIFIED;
+        this.status = UserStatus.PENDING;
     }
 
     public UUID getDigitalId() { return digitalId; }
