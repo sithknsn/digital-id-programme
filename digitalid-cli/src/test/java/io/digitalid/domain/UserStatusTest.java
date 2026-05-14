@@ -8,9 +8,9 @@ public class UserStatusTest {
 
     @Test
     public void validTransitionsProduceCorrectState() {
-        assertEquals(UserStatus.ACTIVE, UserStatus.UNVERIFIED.activate());
-        assertEquals(UserStatus.SUSPENDED, UserStatus.ACTIVE.suspend());
-        assertEquals(UserStatus.ACTIVE, UserStatus.SUSPENDED.activate());
+        assertEquals(UserStatus.ACTIVE, UserStatus.PENDING.activate());
+        assertEquals(UserStatus.INACTIVE, UserStatus.ACTIVE.deactivate());
+        assertEquals(UserStatus.ACTIVE, UserStatus.INACTIVE.activate());
         assertEquals(UserStatus.REVOKED, UserStatus.ACTIVE.revoke());
     }
 
@@ -21,6 +21,6 @@ public class UserStatusTest {
 
     @Test(expected = IllegalStateException.class)
     public void invalidTransitionThrows() {
-        UserStatus.UNVERIFIED.suspend();
+        UserStatus.PENDING.deactivate();
     }
 }
