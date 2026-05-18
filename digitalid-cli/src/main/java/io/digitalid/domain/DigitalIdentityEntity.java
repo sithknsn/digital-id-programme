@@ -11,6 +11,7 @@ public class DigitalIdentityEntity {
     private final String lastName;
     private final String email;
     private final LocalDateTime dateCreated;
+    private final LocalDateTime expiryDate;
 
     private String address;
     private UserStatus status;
@@ -20,6 +21,7 @@ public class DigitalIdentityEntity {
     public DigitalIdentityEntity(IdentityAttributes request) {
         this.digitalId = UUID.randomUUID();
         this.dateCreated = LocalDateTime.now();
+        this.expiryDate = this.dateCreated.plusYears(5);
         this.firstName = request.firstName();
         this.lastName = request.lastName();
         this.email = request.email();
@@ -31,8 +33,13 @@ public class DigitalIdentityEntity {
 
     public UUID getDigitalId() { return digitalId; }
     public LocalDateTime getDateCreated() { return dateCreated; }
+    public LocalDateTime getExpiryDate() { return expiryDate; }
     public LocalDate getDateOfBirth() { return dateOfBirth; }
     public String getNationality() { return nationality; }
+
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(expiryDate);
+    }
 
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
