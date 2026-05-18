@@ -63,6 +63,13 @@ public class IdentityService implements IdentityInputPort {
     @Override
     public DigitalIdentityEntity updateStatus(UUID digitalId, UserStatus newStatus) {
         DigitalIdentityEntity identity = searchIdentity(digitalId);
+        if (identity.isExpired() && newStatus != UserStatus.EXPIRED) {
+            identity.setStatus(UserStatus.EXPIRED);
+            identity.setLastModified(LocalDateTime.now());
+            store.save(identity);
+            throw new IllegalStateException("Identity has already expired and cannot transition to " + newStatus);
+        }
+
         UserStatus previousStatus = identity.getStatus();
 
         identity.setStatus(newStatus);
@@ -73,7 +80,7 @@ public class IdentityService implements IdentityInputPort {
         eventLog.record(new EventEntry(
             digitalId,
             "status_change",
-            previousStatus + "has now changed to " + newStatus,
+            previousStatus + " has now changed to " + newStatus,
             LocalDateTime.now()
         ));
 
