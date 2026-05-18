@@ -43,12 +43,11 @@ public class DigitalIdentityEntity {
 
     public UserStatus getStatus() { return status; }
 
-    protected void setStatus(UserStatus status) {
-        if (this.status.isRevoked()){
+    public void setStatus(UserStatus status) {
+        if (this.status.isRevoked()) {
             throw new IllegalStateException("[STATE ERROR] You cannot update a revoked identity");
         }
         this.status = status;
-
     }
     public LocalDateTime getLastModified() { return lastModified; }
     public void setLastModified(LocalDateTime lastModified) { this.lastModified = lastModified; }
