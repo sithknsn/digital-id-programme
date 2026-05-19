@@ -5,6 +5,10 @@ A console-based backend system for managing and verifying digital identities acr
 **Github Repository:** https://github.com/sithknsn/digital-id-programme
 
 
+<img width="418" height="401" alt="image" src="https://github.com/user-attachments/assets/6d820b5c-b47f-440c-80bb-733230edf919" />
+
+
+
 **Running the application:**
 
 ```bash
