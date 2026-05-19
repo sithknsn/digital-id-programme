@@ -1,9 +1,11 @@
 package io.digitalid.domain;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class DigitalIdentityEntity {
+public class DigitalIdentityEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final UUID digitalId;
     private final LocalDate dateOfBirth;
     private final String nationality;
